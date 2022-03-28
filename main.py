@@ -69,46 +69,35 @@ def main():
                     font-size:42px">
                     Обработка
                     </p>''',unsafe_allow_html=True)
-    # st.text(tf.executing_eagerly())
+
     menu = ["Домашняя страница", "О сервисе"]
     choice = st.sidebar.selectbox("Меню", menu)
 
     if choice == "Домашняя страница":
         st.subheader("Выберите  документ:")
-        col1 = st.columns(1)
+        col1, col2 = st.columns((9, 1))
 
         with col1:
-            content_file = st.file_uploader("Выберите документ для обработки", ['docx'],
-                                             help="Перетащите или выберите файл, "
-                                                  "ограничение размера - 25 Мб на файл\n\n"
-                                                  " • Формат файлf - DOCX.")
+            content_file = st.file_uploader("Выберите документ для обработки", ['docx'], help="Перетащите или выберите файл, ""ограничение размера - 25 Мб на файл\n\n"" • Формат файлf - DOCX.")
             if content_file is not None:
                 file_details = {"FileName": content_file.name, "FileType": content_file.type}
                 if content_file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
                     text = docx2txt.process(content_file)  # Parse in the uploadFile Class directory
                 st.write(text)
 
-        col7, col8, col9 = st.columns((2, 1, 2))
+        col7, col8, col9 = st.columns((2, 2, 2))
         with col8:
             style_transfer_button = st.button("Начать обработку")
             if style_transfer_button:
                 if content_file is not None :
-            else:
-                st.subheader("About")
-                st.info("Built with Streamlit")
-                st.info("Jesus Saves @JCharisTech")
-                st.text("Jesse E.Agbe(JCharis)")
-                st.write(file_details)
-
-            elif content_file is not None:
-                st.error("Ошибка: Документ не загружен.")
+                    st.error("Ошибка: Документ не загружен.")
 
     else:
         st.subheader("О сервисе")
-        st.text("Алгоритм чегото там")
+        st.text("Алгоритм чего-то там")
         st.text("-----------------------------------------------------------------------------")
-        st.text("Сервис разработан студентом группы ИУ5Ц-102Б")
-        st.text("Гусевым Сергеем")
+        st.text("Сервис разработан студентом группы ИУ5-81Б")
+        st.text("Карповым Даниилом")
         st.text("МГТУ им. Н.Э. Баумана, 2022")
 
 if __name__ == '__main__':
