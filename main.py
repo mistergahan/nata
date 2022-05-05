@@ -36,9 +36,6 @@ def init_db(conn: Connection):
     )
     conn.commit()
 
-def insert_db(conn: Connection):
-    conn.execute(f"INSERT INTO vkrb (FIO, ADRESS, DAT, MONEY, FILE)  (111; 222; 333; 444; 555)")
-    conn.commit()
 
 def get_data(conn: Connection):
     df = pd.read_sql("SELECT * FROM vkrb", con=conn)
@@ -132,25 +129,27 @@ def main():
                     a = NatashaExtractor(text)
                     # st.write("Даты")
                     for i in a.get_dates():
-                        st.write(i)
+                        #st.write(i)
                         dat = i
-                        cursor.execute("""INSERT INTO vkrb (DAT, FILE) VALUES ({dat}, {fname})""")
+                        cursor.execute(f"INSERT INTO vkrb (DAT, FILE) VALUES ({dat, fname})")
                         conn.commit()
                     # st.write("ФИО")
                     for n in a.get_names():
-                        st.write(n)
+                        #st.write(n)
                         nam = n
-                        cursor.execute("""INSERT INTO vkrb (FIO, FILE) VALUES ({nam}, {fname})""")
+                        cursor.execute(f"INSERT INTO vkrb (FIO, FILE) VALUES ({nam, fname})")
                         conn.commit()
                     # st.write("Адрес")
                     for k in a.get_addresses():
-                        st.write(k)
-                        conn.execute("""INSERT INTO vkrb (ADRESS, FILE) VALUES ("{k}", "content_file.name")""")
+                        #st.write(k)
+                        addr = k
+                        conn.execute(f"INSERT INTO vkrb (ADRESS, FILE) VALUES ({addr, fname})")
                         conn.commit()
                     # st.write("Деньги")
                     for m in a.get_money():
-                        st.write(m)
-                        cursor.execute("""INSERT INTO vkrb (MONEY, FILE) VALUES ("{m}", "content_file.name")""")
+                        #st.write(m)
+                        mon = m
+                        cursor.execute(f"INSERT INTO vkrb (MONEY, FILE) VALUES ({mon, fname})")
                         conn.commit()
 
 
